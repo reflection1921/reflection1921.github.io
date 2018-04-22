@@ -1,4 +1,4 @@
 <Major>1</Major>
 <Center>0</Center>
-<Minor>5</Minor>
+<Minor>6</Minor>
 <Emgncy>0</Emgncy>
