@@ -43,12 +43,12 @@
           			timer = setInterval(showRemaining, 1000);
         		}
 
-			function hide_timer_show_real() {
-				document.getElementById("ctimer").style.display = "none";
-				document.getElementById("nickname").style.display = "block";
-				document.getElementById("dev_apps").style.display = "block";
-				document.getElementById("go_main").style.display = "none";
-				document.getElementById("description").innerHTML = "Software Developer";
+			function hide_timer_show_real(timeshow, real, dsc) {
+				document.getElementById("ctimer").style.display = timeshow;
+				document.getElementById("nickname").style.display = real;
+				document.getElementById("dev_apps").style.display = real;
+				document.getElementById("go_main").style.display = timeshow;
+				document.getElementById("description").innerHTML = dsc;
 			}
 
     		</script>
@@ -62,7 +62,7 @@
 						<h1 id="ctimer">0일 0시간 0분 0초</h1>
 						<h1 id="nickname" style="display:none;">Reflection</h1>
 						<p id="description">사회로의 탈출까지</p>
-						<p id="go_main"><a href="javascript:hide_timer_show_real()">Go Main</a></p>
+						<p id="go_main"><a href="javascript:hide_timer_show_real('block', 'none', 'Software Developer')">Go Main</a></p>
 						<p id="dev_apps" style="display:none;"><a href="http://chihaya.kr/apps/">Developed Apps</a></p>
 						<nav>
 							<ul>
@@ -76,7 +76,7 @@
 
 				<!-- Footer -->
 					<footer id="footer">
-						<span class="copyright">&copy; Reflection / Contact: <a href="mailto: admin@chihaya.kr">admin@chihaya.kr</a> / Template: <a href="http://html5up.net">HTML5 UP</a></span>
+						<span class="copyright">&copy; Reflection / Contact: <a href="javascript:hide_timer_show_real('none', 'block', '사회로의 탈출까지')">Show Timer</a> / Template: <a href="http://html5up.net">HTML5 UP</a></span>
 					</footer>
 
 			</div>
