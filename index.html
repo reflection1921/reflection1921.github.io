@@ -14,44 +14,6 @@
 		<meta name="theme-color" content="#596e79">
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-		<script>
-      			CountDownTimer('03/21/2020 08:30 AM', 'ctimer');
-      			function CountDownTimer(dt, id) {
-        			var end = new Date(dt);
-        			var _second = 1000;
-        			var _minute = _second * 60;
-        			var _hour = _minute * 60;
-        			var _day = _hour * 24;
-        			var timer;
-          			function showRemaining() {
-            				var now = new Date();
-            				var distance = end - now;
-            				if (distance < 0) {
-              					clearInterval(timer);
-              					document.getElementById(id).innerHTML = '[속보] Reflection 전역!';
-              					return;
-            				}
-            				var days = Math.floor(distance / _day);
-            				var hours = Math.floor((distance % _day) / _hour);
-            				var minutes = Math.floor((distance % _hour) / _minute);
-            				var seconds = Math.floor((distance % _minute) / _second);
-            				document.getElementById(id).innerHTML = days + '일 ';
-            				document.getElementById(id).innerHTML += hours + '시간 ';
-            				document.getElementById(id).innerHTML += minutes + '분 ';
-            				document.getElementById(id).innerHTML += seconds + '초';
-          			}
-          			timer = setInterval(showRemaining, 1000);
-        		}
-
-			function hide_timer_show_real(timeshow, real, dsc) {
-				document.getElementById("ctimer").style.display = timeshow;
-				document.getElementById("nickname").style.display = real;
-				document.getElementById("dev_apps").style.display = real;
-				document.getElementById("go_main").style.display = timeshow;
-				document.getElementById("description").innerHTML = dsc;
-			}
-
-    		</script>
 	</head>
 	<body class="loading">
 		<div id="wrapper">
@@ -59,14 +21,14 @@
 				<!-- Header -->
 					<header id="header">
 					
-						<h1 id="ctimer">0일 0시간 0분 0초</h1>
-						<h1 id="nickname" style="display:none;">Reflection</h1>
-						<p id="description">사회로의 탈출까지</p>
-						<p id="go_main"><a href="javascript:hide_timer_show_real('none', 'block', 'Software Developer')">Go Main</a></p>
-						<p id="dev_apps" style="display:none;"><a href="http://chihaya.kr/apps/">Developed Apps</a></p>
+						<h1>Reflection</h1>
+						<p>Software Developer</p>
+						<p><a href="http://chihaya.kr/apps/">Developed Apps</a></p>
 						<nav>
 							<ul>
 								<li><a href="https://story.kakao.com/firesoft" class="icon xi-kakaostory"><span class="label">KakaoStory</span></a></li>
+								<li><a href="http://twitter.com/hestiax1921" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+								<li><a href="http://instagram.com/hestiax1921" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
 								<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
 								<li><a href="https://github.com/reflection1921" class="icon fa-github"><span class="label">Github</span></a></li>
 								<li><a href="mailto: admin@chihaya.kr" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
@@ -76,7 +38,7 @@
 
 				<!-- Footer -->
 					<footer id="footer">
-						<span class="copyright">&copy; Reflection / <a href="javascript:hide_timer_show_real('block', 'none', '사회로의 탈출까지')">Show Timer</a> / Template: <a href="http://html5up.net">HTML5 UP</a></span>
+						<span class="copyright">&copy; Reflection / Contact: <a href="mailto: admin@chihaya.kr">admin@chihaya.kr</a> / Template: <a href="http://html5up.net">HTML5 UP</a></span>
 					</footer>
 
 			</div>
