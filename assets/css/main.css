@@ -3093,6 +3093,10 @@ input, select, textarea {
 		.spotlights > section:nth-child(8) {
 			background-color: rgba(0, 0, 0, 0.35);
 		}
+		
+		.spotlights > section:nth-child(9) {
+			background-color: rgba(0, 0, 0, 0.4);
+		}
 
 		.spotlights > section.inactive > .image:before,
 		body.is-preload .spotlights > section > .image:before {
