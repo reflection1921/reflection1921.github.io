@@ -19,6 +19,7 @@
 			function loginWithKakao() {
 				
 				Kakao.Auth.login({
+				throughTalk: false,
 				success: function(authObj) {
 					document.getElementById("divLoginK").style.display = 'none'
 					document.getElementById("divDeleteA").style.display = 'block'
