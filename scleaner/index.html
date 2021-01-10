@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<!--
+	Identity by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Story Cleaner</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+				Kakao.init('ad08618177634d35e8910d0d45331c6c');
+			})
+			function loginWithKakao() {
+				
+				Kakao.Auth.login({
+				success: function(authObj) {
+					document.getElementById("divLoginK").style.display = 'none'
+					document.getElementById("divDeleteA").style.display = 'block'
+					document.getElementById("pText").textContent = '아래 청소하기를 눌러 깨끗하게 비울 수 있습니다.'
+				},
+				fail: function(err) {
+					alert(JSON.stringify(err))
+				},
+				})
+			}
+
+			function getArticlesNOTHIG(articleID) {
+				Kakao.API.request({
+				  url: '/v1/api/story/mystories',
+				  data: {
+					last_id: articleID
+				  }
+				});
+			}
+
+			function doDelete(articleID) {
+				Kakao.API.request({
+				  url: '/v1/api/story/mystories',
+				  data: {
+					last_id: articleID
+				  },
+				  success: function (data) {
+					if (data.length == 0) {
+						document.getElementById("divLoadingB").style.display = 'none'
+						document.getElementById("pText").textContent = '청소가 완료되었습니다!'
+					} else {
+						for (i = 0; i < data.length; i++) {
+							Kakao.API.request({
+								url: '/v1/api/story/delete/mystory',
+								data: {
+									id: data[i].id
+								}
+							});
+							//console.log(data[i].id)
+						}
+						doDelete(data[data.length - 1].id)
+					}
+				  }
+				});
+			}
+
+			function startClean(articleID) {
+				document.getElementById("divDeleteA").style.display = 'none'
+				document.getElementById("divLoadingB").style.display = 'block'
+				document.getElementById("pText").textContent = '청소가 진행중입니다.'
+				doDelete(articleID)
+			}
+
+			function deleteArticle(articleID) {
+				Kakao.API.request({
+				  url: '/v1/api/story/delete/mystory',
+				  data: {
+					id: articleID
+				  },
+				  success: function (data) {
+					  return data
+				  }
+				});
+			}
+		</script>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main">
+						<header>
+							<span class="avatar"><img src="images/cleaner.png" alt="" /></span>
+							<h1>Story Cleaner</h1>
+							<div><p id="pText">카카오스토리 게시글 청소기<br>카카오스토리에 로그인하면 바로 모든 게시글을 삭제합니다.</p></div>
+						</header>
+						<ul class="actions special">
+								<div id="divLoginK"><li><a href="javascript:loginWithKakao()" class="button">카카오스토리 로그인</a></li></div>
+								<div id="divDeleteA" style="display:none"><li><a href="javascript:startClean('')" class="button">게시글 삭제하기</a></li></div>
+								<div id="divLoadingB" class="loader" style="display:none"></div>
+						</ul>
+						<footer>
+							<ul class="icons">
+								<li><a href="http://github.com/reflection1921" class="icon brands xi-github">GitHub</a></li>
+								<li><a href="https://story.kakao.com/firesoft" class="icon brands xi-kakaostory">KakaoStory</a></li>
+							</ul>
+						</footer>
+					</section>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="copyright">
+							<li>&copy; Reflection</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script>
+				if ('addEventListener' in window) {
+					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-preload\b/, ''); });
+					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+				}
+			</script>
+
+	</body>
+</html>
