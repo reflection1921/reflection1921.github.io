@@ -13,6 +13,8 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 		<script>
+			var permissionType = []
+			var excludeArticles = []
 			document.addEventListener("DOMContentLoaded", function() {
 				Kakao.init('ad08618177634d35e8910d0d45331c6c');
 			})
@@ -31,15 +33,6 @@
 				})
 			}
 
-			function getArticlesNOTHIG(articleID) {
-				Kakao.API.request({
-				  url: '/v1/api/story/mystories',
-				  data: {
-					last_id: articleID
-				  }
-				});
-			}
-
 			function doDelete(articleID) {
 				Kakao.API.request({
 				  url: '/v1/api/story/mystories',
@@ -51,13 +44,19 @@
 						document.getElementById("divLoadingB").style.display = 'none'
 						document.getElementById("pText").textContent = '청소가 완료되었습니다!'
 					} else {
+						
 						for (i = 0; i < data.length; i++) {
-							Kakao.API.request({
-								url: '/v1/api/story/delete/mystory',
-								data: {
-									id: data[i].id
+							if (permissionType.some(el => data[i].permission.includes(el))) {
+								if (!excludeArticles.some(ea => data[i].id.includes(ea))) {
+									Kakao.API.request({
+										url: '/v1/api/story/delete/mystory',
+										data: {
+											id: data[i].id
+										}
+									});
 								}
-							});
+								
+							}
 							//console.log(data[i].id)
 						}
 						doDelete(data[data.length - 1].id)
@@ -67,22 +66,60 @@
 			}
 
 			function startClean(articleID) {
+				if (document.getElementById('publicA').checked) {
+					permissionType.push("PUBLIC")
+				}
+
+				if (document.getElementById('friendA').checked) {
+					permissionType.push("FRIEND")
+				}
+
+				if (document.getElementById('onlymeA').checked) {
+					permissionType.push("ONLY_ME")
+				}
+
+				var tmpArticles = document.getElementById('message').value.split('\n');
+
+				for (i = 0; i < tmpArticles.length; i++) {
+					try {
+						excludeArticles.push(tmpArticles[i].split('story.kakao.com/')[1].split('/')[1].replace(/\//gi, ""));
+					} catch(error) {
+						//console.log('x');
+					}
+				}
+
+				console.log(excludeArticles[0])
+
+				console.log(permissionType)
 				document.getElementById("divDeleteA").style.display = 'none'
 				document.getElementById("divLoadingB").style.display = 'block'
 				document.getElementById("pText").textContent = '청소가 진행중입니다.'
 				doDelete(articleID)
 			}
 
-			function deleteArticle(articleID) {
-				Kakao.API.request({
-				  url: '/v1/api/story/delete/mystory',
-				  data: {
-					id: articleID
-				  },
-				  success: function (data) {
-					  return data
-				  }
-				});
+			function enableDark(isDark) {
+				if (isDark == true) {
+					document.getElementById("main").style.background="#474954";
+					var h1 = document.getElementsByTagName("h1");
+					for (i = 0; i < h1.length; i++)
+						h1[i].style.color = "#dcddde";
+					document.getElementById("avatarImg").style.boxShadow = "0 0 0 1.5em #474954";
+					document.getElementById("avatarImg").src = "images/cleaner_night.png";
+					var p = document.getElementsByTagName("p");
+					for (i = 0; i < p.length; i++)
+						p[i].style.color = "#dcddde";
+				} else {
+					document.getElementById("main").style.background="#ffffff";
+					var h1 = document.getElementsByTagName("h1");
+					for (i = 0; i < h1.length; i++)
+						h1[i].style.color = "#313f47"
+					document.getElementById("avatarImg").style.boxShadow = "0 0 0 1.5em #ffffff";
+					document.getElementById("avatarImg").src = "images/cleaner.png";
+					var p = document.getElementsByTagName("p");
+					for (i = 0; i < p.length; i++)
+						p[i].style.color = "#414f57";
+				}
+
 			}
 		</script>
 	</head>
@@ -94,19 +131,37 @@
 				<!-- Main -->
 					<section id="main">
 						<header>
-							<span class="avatar"><img src="images/cleaner.png" alt="" /></span>
+							<span class="avatar"><img id="avatarImg" src="images/cleaner.png" alt="" /></span>
 							<h1>Story Cleaner</h1>
 							<div><p id="pText">카카오스토리 게시글 청소기<br>카카오스토리에 로그인하면 바로 모든 게시글을 삭제합니다.</p></div>
 						</header>
+						<form id="divDeleteA" style="display: none;">
+							<hr />
+							<h2>청소기 설정</h2>
+							<div class="fields">
+								<div class="field">
+									<input type="checkbox" id="publicA" name="publicA" checked /><label for="publicA">전체공개 글 삭제</label>
+									<input type="checkbox" id="friendA" name="friendA" checked /><label for="friendA">친구공개 글 삭제</label>
+									<input type="checkbox" id="onlymeA" name="onlymeA" checked /><label for="onlymeA">나만보기 글 삭제</label>
+									<p>※친구공개 글에는 편한 친구 공개(우리끼리보기)도 포함됩니다.</p>
+								</div>
+								<div class="field">
+									<p>삭제에서 제외할 게시글 URL 입력</p>
+									<textarea name="message" id="message" placeholder="예시. https://story.kakao.com/_jYmvy/kQgUUR6WgVA&#10;URL을 정확하게 입력하셔야 정상적으로 제외 대상에 포함됩니다." rows="8"></textarea>
+								</div>
+							</div>
+							<ul class="actions special">
+								<div><li><a href="javascript:startClean('')" onkeypress="return confirm('게시글을 청소하면 되돌릴 수 없습니다. 삭제할까요?')" onclick="return confirm('게시글을 청소하면 되돌릴 수 없습니다. 삭제할까요?')" class="button">게시글 삭제하기</a></li></div>
+							</ul>
+							<hr />
+						</form>
 						<ul class="actions special">
 								<div id="divLoginK"><li><a href="javascript:loginWithKakao()" class="button">카카오스토리 로그인</a></li></div>
-								<div id="divDeleteA" style="display:none"><li><a href="javascript:startClean('')" class="button">게시글 삭제하기</a></li></div>
 								<div id="divLoadingB" class="loader" style="display:none"></div>
 						</ul>
 						<footer>
 							<ul class="icons">
-								<li><a href="http://github.com/reflection1921" class="icon brands xi-github">GitHub</a></li>
-								<li><a href="https://story.kakao.com/firesoft" class="icon brands xi-kakaostory">KakaoStory</a></li>
+								<!--<li><a href="javascript:enableDark(true)" class="icon brands xi-night">Dark Mode</a></li>-->
 							</ul>
 						</footer>
 					</section>
@@ -114,7 +169,7 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<ul class="copyright">
-							<li>&copy; Reflection</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							<li></li><li>&copy; Reflection</li><br><li>Special Thanks: 박종우</li><br><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 						</ul>
 					</footer>
 

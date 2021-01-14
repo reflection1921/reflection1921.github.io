@@ -152,19 +152,26 @@
 
 /* Type */
 
-	body, input, select, textarea {
+	body, input, select {
 		color: #414f57;
 		font-family: "Noto Sans KR", Helvetica, sans-serif;
 		font-size: 14pt;
 		font-weight: 300;
 		line-height: 2;
 		letter-spacing: 0.2em;
-		text-transform: uppercase;
+	}
+
+	textarea {
+		color: #414f57;
+		font-family: "Noto Sans KR", Helvetica, sans-serif;
+		font-weight: 300;
+		line-height: 2;
+		letter-spacing: 0.2em;
 	}
 
 		@media screen and (max-width: 1680px) {
 
-			body, input, select, textarea {
+			body, input, select {
 				font-size: 11pt;
 			}
 
@@ -172,7 +179,7 @@
 
 		@media screen and (max-width: 480px) {
 
-			body, input, select, textarea {
+			body, input, select {
 				font-size: 10pt;
 				line-height: 1.75;
 			}
@@ -487,7 +494,7 @@
 		input[type="checkbox"]:checked + label:before,
 		input[type="radio"]:checked + label:before {
 			color: #ff7496;
-			content: '\f00c';
+			content: '\e928';
 		}
 
 		input[type="checkbox"]:focus + label:before,
@@ -1002,7 +1009,7 @@
 		align-self: flex-end;
 		width: 100%;
 		padding: 1.5em 0 0 0;
-		color: rgba(255, 255, 255, 0.75);
+		color: #414f57;
 		cursor: default;
 		text-align: center;
 	}
@@ -1018,7 +1025,7 @@
 				display: inline-block;
 				margin: 0 0 0 0.45em;
 				padding: 0 0 0 0.85em;
-				border-left: solid 1px rgba(255, 255, 255, 0.5);
+				border-left: solid 1px rgba(255, 255, 255, 0.0);
 				line-height: 1;
 			}
 
