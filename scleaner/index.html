@@ -99,6 +99,8 @@
 
 			function enableDark(isDark) {
 				if (isDark == true) {
+					document.getElementById("btnDark").href = "javascript:enableDark(false)";
+					document.getElementById("btnDark").className = "icon brands xi-sun-o";
 					document.getElementById("main").style.background="#474954";
 					var h1 = document.getElementsByTagName("h1");
 					for (i = 0; i < h1.length; i++)
@@ -108,7 +110,20 @@
 					var p = document.getElementsByTagName("p");
 					for (i = 0; i < p.length; i++)
 						p[i].style.color = "#dcddde";
+					var button = document.getElementsByClassName("button");
+					for (i = 0; i < button.length; i++)
+						button[i].style.color = "#dcddde";
+					document.getElementById("wrapper").style.background = "#36393f";
+					document.getElementsByTagName("footer")[1].style.color = "#dcddde";
+					var label = document.getElementsByTagName("label");
+					for (i = 0; i < label.length; i++)
+						label[i].style.color = "#dcddde";
+					var h2 = document.getElementsByTagName("h2");
+					for (i = 0; i < h2.length; i++)
+						h2[i].style.color = "#dcddde";
 				} else {
+					document.getElementById("btnDark").href = "javascript:enableDark(true)";
+					document.getElementById("btnDark").className = "icon brands xi-night";
 					document.getElementById("main").style.background="#ffffff";
 					var h1 = document.getElementsByTagName("h1");
 					for (i = 0; i < h1.length; i++)
@@ -118,6 +133,17 @@
 					var p = document.getElementsByTagName("p");
 					for (i = 0; i < p.length; i++)
 						p[i].style.color = "#414f57";
+					var button = document.getElementsByClassName("button");
+					for (i = 0; i < button.length; i++)
+						button[i].style.color = "#414f57";
+					document.getElementById("wrapper").style.background = "none";
+					document.getElementsByTagName("footer")[1].style.color = "#414f57";
+					var label = document.getElementsByTagName("label");
+					for (i = 0; i < label.length; i++)
+						label[i].style.color = "#414f57";
+					var h2 = document.getElementsByTagName("h2");
+					for (i = 0; i < h2.length; i++)
+						h2[i].style.color = "#313f47";
 				}
 
 			}
@@ -161,7 +187,7 @@
 						</ul>
 						<footer>
 							<ul class="icons">
-								<!--<li><a href="javascript:enableDark(true)" class="icon brands xi-night">Dark Mode</a></li>-->
+								<li><a id="btnDark" href="javascript:enableDark(true)" class="icon brands xi-night">Dark Mode</a></li>
 							</ul>
 						</footer>
 					</section>
@@ -169,7 +195,7 @@
 				<!-- Footer -->
 					<footer id="footer">
 						<ul class="copyright">
-							<li></li><li>&copy; Reflection</li><br><li>Special Thanks: 박종우</li><br><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							<li></li><li>&copy; <a href="http://chihaya.kr">Reflection</a></li><br><li>Special Thanks: 박종우</li><br><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 						</ul>
 					</footer>
 
