@@ -1842,11 +1842,11 @@ input, select, textarea {
 		display: inline-block;
 		font-size: 0.8em;
 		font-weight: bold;
-		height: calc(3.75em + 2px);
+		height: calc(2.75em + 2px);
 		letter-spacing: 0.25em;
-		line-height: 3.75em;
+		line-height: 2.75em;
 		outline: 0;
-		padding: 0 2.75em;
+		padding: 0 1.75em;
 		position: relative;
 		text-align: center;
 		text-decoration: none;
