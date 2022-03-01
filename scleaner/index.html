@@ -102,6 +102,7 @@
 					document.getElementById("btnDark").href = "javascript:enableDark(false)";
 					document.getElementById("btnDark").className = "icon brands xi-sun-o";
 					document.getElementById("main").style.background="#474954";
+					document.getElementById("useDarkAd").style.color = "#dcddde";
 					var h1 = document.getElementsByTagName("h1");
 					for (i = 0; i < h1.length; i++)
 						h1[i].style.color = "#dcddde";
@@ -125,6 +126,7 @@
 					document.getElementById("btnDark").href = "javascript:enableDark(true)";
 					document.getElementById("btnDark").className = "icon brands xi-night";
 					document.getElementById("main").style.background="#ffffff";
+					document.getElementById("useDarkAd").style.color = "#414f57";
 					var h1 = document.getElementsByTagName("h1");
 					for (i = 0; i < h1.length; i++)
 						h1[i].style.color = "#313f47"
@@ -190,7 +192,7 @@
 								<li><a id="btnDark" href="javascript:enableDark(true)" class="icon brands xi-night">Dark Mode</a></li>
 							</ul>
 							<br>
-							<a href="https://story.kakao.com/firesoft/ATQ2BWtc8z9">이제 웹 카카오스토리에서도 다크모드를 사용해보세요!</a>
+							<a id="useDarkAd" href="https://story.kakao.com/firesoft/ATQ2BWtc8z9">이제 웹 카카오스토리에서도 다크모드를 사용해보세요!</a>
 						</footer>
 					</section>
 
